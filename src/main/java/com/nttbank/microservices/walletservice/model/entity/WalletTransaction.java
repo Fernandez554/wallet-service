@@ -1,7 +1,6 @@
 package com.nttbank.microservices.walletservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.nttbank.microservices.walletservice.model.domain.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -12,6 +11,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * WalletTransaction class represents a wallet transaction entity in the system.
+ */
 @Data
 @Document(collection = "wallet_transactions")
 @AllArgsConstructor
@@ -19,14 +21,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public class WalletTransactions {
+public class WalletTransaction {
+
   @EqualsAndHashCode.Include
   @Id
   private String id;
-  private String documentId;
   private String walletId;
-  private TransactionType type;
-  private BigDecimal amount;
-  private LocalDateTime createdAt;
+  private String type;
   private String description;
+  private BigDecimal amount;
+  private String status;
+  @Builder.Default
+  private LocalDateTime createdAt = LocalDateTime.now();
+  @Builder.Default
+  private LocalDateTime updatedAt = LocalDateTime.now();
+
 }

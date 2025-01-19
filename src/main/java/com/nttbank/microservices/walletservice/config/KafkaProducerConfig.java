@@ -1,24 +1,28 @@
 package com.nttbank.microservices.walletservice.config;
 
 import com.nttbank.microservices.commonlibrary.event.GenericEvent;
-import com.nttbank.microservices.commonlibrary.event.WalletTransferEvent;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+/** Kafka producer configuration. */
+@Configuration
 public class KafkaProducerConfig {
+
   @Value("${kafka.nttbank.server:127.0.0.1}")
   private String kafkaServer;
 
   @Value("${kafka.nttbank.port:9092}")
   private String kafkaPort;
 
+  /** Kafka producer factory. */
   public ProducerFactory<String, GenericEvent> producerFactory() {
     Map<String, Object> kafkaProperties = new HashMap<>();
     kafkaProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer + ":" + kafkaPort);
@@ -27,6 +31,7 @@ public class KafkaProducerConfig {
     return new DefaultKafkaProducerFactory<>(kafkaProperties);
   }
 
+  /** Kafka template. */
   @Bean
   public KafkaTemplate<String, GenericEvent> kafkaTemplate() {
     return new KafkaTemplate<>(producerFactory());

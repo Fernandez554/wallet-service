@@ -2,7 +2,6 @@ package com.nttbank.microservices.walletservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.nttbank.microservices.walletservice.model.domain.DebitCard;
-import com.nttbank.microservices.walletservice.model.domain.StatusType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -13,8 +12,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
-
+/**
+ * DigitalWallet class represents a digital wallet entity in the system.
+ */
 @Data
 @Document(collection = "wallets")
 @AllArgsConstructor
